@@ -57,6 +57,8 @@
 - [ ] 팀원들이 합의한 최적의 테스트 전략은 무엇인지, 그리고 그 이유를 작성해주세요.
 - [ ] 그 전략에 맞춰 추가한 테스트는 무엇인지 나타내주세요.
 
+https://www.figma.com/board/SwcN2Sgc2ksMtjCcPzCImn/항해?node-id=14-722&t=eadiHwDiLtUAaJWq-0
+
 ---
 
 ## 과제 셀프회고
