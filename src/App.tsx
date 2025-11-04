@@ -45,7 +45,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { useState, type FC, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import RecurringEventDialog from './components/RecurringEventDialog.tsx';
 import { useCalendarView } from './hooks/useCalendarView.ts';
@@ -360,11 +360,9 @@ function App() {
     resetForm();
   };
 
-  // 드롭 가능한 Day 컨테이너
-  const DroppableDay: FC<{ dateString: string; children: ReactNode }> = ({
-    dateString,
-    children,
-  }) => {
+  // 드롭 Day 컨테이너
+  type DroppableDayProps = { dateString: string; children: ReactNode };
+  const DroppableDay = ({ dateString, children }: DroppableDayProps) => {
     // 날짜 셀을 드롭 타겟으로 등록 (id는 YYYY-MM-DD 문자열)
     const { setNodeRef } = useDroppable({ id: dateString });
     return (
@@ -380,7 +378,9 @@ function App() {
 
   // 드래그 가능한 이벤트 박스
   // 이벤트 박스를 드래그 소스로 등록 (id는 이벤트 id)
-  const DraggableEvent: FC<{ id: string; children: ReactNode }> = ({ id, children }) => {
+  // setNodeRef : 드래그 대상 dom 연결하는 ref
+  type DraggableEventProps = { id: string; children: ReactNode };
+  const DraggableEvent = ({ id, children }: DraggableEventProps) => {
     const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
     const style = transform
       ? {
