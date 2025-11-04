@@ -368,7 +368,11 @@ function App() {
     // 날짜 셀을 드롭 타겟으로 등록 (id는 YYYY-MM-DD 문자열)
     const { setNodeRef } = useDroppable({ id: dateString });
     return (
-      <Box ref={setNodeRef} sx={{ height: '100%', width: '100%' }}>
+      <Box
+        ref={setNodeRef}
+        sx={{ height: '100%', width: '100%', cursor: 'pointer' }}
+        onClick={() => setDate(dateString)}
+      >
         {children}
       </Box>
     );
