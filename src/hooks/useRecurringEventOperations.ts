@@ -8,6 +8,7 @@ import { Event } from '../types';
 const API_ENDPOINTS = {
   events: '/api/events',
   recurringEvents: '/api/recurring-events',
+  eventsList: '/api/events-list',
 } as const;
 
 /**
@@ -117,6 +118,11 @@ export const useRecurringEventOperations = (
   /**
    * Prefers recurring API when repeatId is available, falls back to individual updates
    */
+  // 반복 일정 시리즈 편집 처리
+  // - 드래그&드랍으로 날짜가 바뀐 경우: 원본과 변경된 날짜의 차이(일 단위)를 계산해
+  //   같은 시리즈의 모든 이벤트 날짜를 동일하게 이동시킨 후, 일괄 업데이트 엔드포인트에 반영
+  // - 날짜가 바뀌지 않은 경우: 시리즈 메타(제목/설명/위치/카테고리/알림)만 시리즈 API로 갱신
+  // - repeatId가 없는 경우에는 개별 이벤트들로 순회 업데이트
   const updateRecurringSeries = async (
     originalEvent: Event,
     updatedEvent: Event,
@@ -124,6 +130,38 @@ export const useRecurringEventOperations = (
   ): Promise<boolean> => {
     const repeatId = originalEvent.repeat.id;
 
+    // 드래그로 날짜가 변경된 경우: 시리즈 전체를 동일한 간격으로 이동 (일괄 업데이트 사용)
+    const originalDate = new Date(originalEvent.date);
+    const targetDate = new Date(updatedEvent.date);
+    const deltaMs = targetDate.getTime() - originalDate.getTime();
+
+    if (deltaMs !== 0) {
+      const movedEvents = relatedEvents.map((event) => {
+        const current = new Date(event.date);
+        const moved = new Date(current.getTime() + deltaMs);
+        const yyyy = moved.getFullYear();
+        const mm = String(moved.getMonth() + 1).padStart(2, '0');
+        const dd = String(moved.getDate()).padStart(2, '0');
+        const newDate = `${yyyy}-${mm}-${dd}`;
+        return {
+          ...event,
+          // Preserve other potential edits (title, etc.) from updatedEvent if provided
+          title: updatedEvent.title,
+          description: updatedEvent.description,
+          location: updatedEvent.location,
+          category: updatedEvent.category,
+          notificationTime: updatedEvent.notificationTime,
+          date: newDate,
+        } as Event;
+      });
+
+      // 서버는 /api/events-list PUT으로 여러 이벤트를 한 번에 갱신함
+      return await makeApiRequest(API_ENDPOINTS.eventsList, HTTP_METHODS.PUT, {
+        events: movedEvents,
+      });
+    }
+
+    // 날짜 이동이 아니면 시리즈 메타데이터만 갱신
     if (repeatId) {
       const updateData = {
         title: updatedEvent.title,
@@ -133,12 +171,13 @@ export const useRecurringEventOperations = (
         notificationTime: updatedEvent.notificationTime,
       };
       return await updateRecurringEventOnServer(repeatId, updateData);
-    } else {
-      const results = await Promise.all(
-        relatedEvents.map((event) => updateEventOnServer({ ...event, title: updatedEvent.title }))
-      );
-      return results.every((result) => result);
     }
+
+    // repeatId가 없을 때: 같은 시리즈로 판단된 개별 이벤트들을 각각 업데이트
+    const results = await Promise.all(
+      relatedEvents.map((event) => updateEventOnServer({ ...event, title: updatedEvent.title }))
+    );
+    return results.every((result) => result);
   };
 
   /**

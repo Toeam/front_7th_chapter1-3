@@ -40,7 +40,14 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
   const saveEvent = async (eventData: Event | EventForm) => {
     try {
       let response;
-      if (editing) {
+      // 업데이트 기준:
+      // - 편집 모드이거나
+      // - 현재 로컬 상태에 동일 id의 이벤트가 이미 존재하면 업데이트(드래그 이동 등의 케이스)
+      // 그 외에는 생성으로 처리한다.
+      const targetId = (eventData as Event).id;
+      const existsInState = targetId ? events.some((e) => e.id === targetId) : false;
+      const shouldUpdate = editing || existsInState;
+      if (shouldUpdate) {
         const editingEvent = {
           ...eventData,
           // ! TEST CASE
@@ -70,9 +77,12 @@ export const useEventOperations = (editing: boolean, onSave?: () => void) => {
 
       await fetchEvents();
       onSave?.();
-      enqueueSnackbar(editing ? SUCCESS_MESSAGES.EVENT_UPDATED : SUCCESS_MESSAGES.EVENT_ADDED, {
-        variant: 'success',
-      });
+      enqueueSnackbar(
+        shouldUpdate ? SUCCESS_MESSAGES.EVENT_UPDATED : SUCCESS_MESSAGES.EVENT_ADDED,
+        {
+          variant: 'success',
+        }
+      );
     } catch (error) {
       console.error('Error saving event:', error);
       enqueueSnackbar(ERROR_MESSAGES.SAVE_FAILED, { variant: 'error' });
