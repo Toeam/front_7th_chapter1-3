@@ -79,7 +79,7 @@ const onDragEndHandler = (e: DragEndEvent) => {
 const currentDate = new Date('2025-11-01');
 
 // 기준이 되는  뷰
-export const Empty: Story = {
+export const Empty = {
   args: {
     currentDate: currentDate,
     filteredEvents: [],
