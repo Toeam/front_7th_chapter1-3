@@ -63,7 +63,9 @@ const DialogsPanel = ({
         </DialogContent>
         <DialogActions>
           <Button onClick={overlap.onClose}>취소</Button>
-          <Button color="error" onClick={overlap.onProceed}>계속 진행</Button>
+          <Button color="error" onClick={overlap.onProceed}>
+            계속 진행
+          </Button>
         </DialogActions>
       </Dialog>
 
@@ -83,10 +85,11 @@ const DialogsPanel = ({
               severity="info"
               sx={{ width: 'auto' }}
               action={
-              <IconButton size="small" onClick={() => onDismissNotification(index)}>
-                <Close />
-              </IconButton>
-            }>
+                <IconButton size="small" onClick={() => onDismissNotification(index)}>
+                  <Close />
+                </IconButton>
+              }
+            >
               <AlertTitle>{notification.message}</AlertTitle>
             </Alert>
           ))}

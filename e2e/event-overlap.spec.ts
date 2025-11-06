@@ -80,7 +80,6 @@ test.describe('일정 겹침 처리 방식 검증', () => {
     await expect(page.getByText('일정 겹침 경고')).toBeVisible();
     await page.getByRole('button', { name: '취소' }).click();
 
-
     const eventList = page.getByTestId('event-list');
     await expect(eventList.getByText('겹치는 일정')).not.toBeVisible();
     await expect(eventList.getByText('기존 일정')).toBeVisible();

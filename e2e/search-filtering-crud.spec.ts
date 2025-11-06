@@ -28,9 +28,7 @@ test.describe('검색 및 필터링 CRUD 검증', () => {
     await clearTestingData();
   });
 
-  test('Create - 제목으로 검색 가능한 일정 생성 후 검색으로 조회 가능합니다', async ({
-    page,
-  }) => {
+  test('Create - 제목으로 검색 가능한 일정 생성 후 검색으로 조회 가능합니다', async ({ page }) => {
     // 1. 제목에 검색어가 포함된 일정 생성
     await page.fill('#title', '회의 일정');
     await page.fill('#date', '2025-11-10');
@@ -49,9 +47,7 @@ test.describe('검색 및 필터링 CRUD 검증', () => {
     await expect(eventList.getByText('회의 일정')).toBeVisible({ timeout: 5000 });
   });
 
-  test('Create - 설명으로 검색 가능한 일정 생성 후 검색으로 조회 가능합니다', async ({
-    page,
-  }) => {
+  test('Create - 설명으로 검색 가능한 일정 생성 후 검색으로 조회 가능합니다', async ({ page }) => {
     // 1. 설명에 검색어가 포함된 일정 생성
     await page.fill('#title', '프로젝트 일정');
     await page.fill('#date', '2025-11-11');
@@ -70,9 +66,7 @@ test.describe('검색 및 필터링 CRUD 검증', () => {
     await expect(eventList.getByText('프로젝트 일정')).toBeVisible({ timeout: 5000 });
   });
 
-  test('Create - 위치로 검색 가능한 일정 생성 후 검색으로 조회 가능합니다', async ({
-    page,
-  }) => {
+  test('Create - 위치로 검색 가능한 일정 생성 후 검색으로 조회 가능합니다', async ({ page }) => {
     // 1. 위치에 검색어가 포함된 일정 생성
     await page.fill('#title', '팀 미팅');
     await page.fill('#date', '2025-11-12');
@@ -92,7 +86,6 @@ test.describe('검색 및 필터링 CRUD 검증', () => {
   });
 
   test('Read - 제목으로 검색 시 일정이 조회됩니다', async ({ page }) => {
-
     await page.fill('#title', '검색 대상 일정');
     await page.fill('#date', '2025-11-10');
     await page.fill('#start-time', '10:00');
@@ -195,9 +188,7 @@ test.describe('검색 및 필터링 CRUD 검증', () => {
     await expect(page.getByText('검색 결과가 없습니다')).toBeVisible({ timeout: 5000 });
   });
 
-  test('Update - 검색 결과 내 일정 수정 후 수정된 내용으로 검색 가능합니다', async ({
-    page,
-  }) => {
+  test('Update - 검색 결과 내 일정 수정 후 수정된 내용으로 검색 가능합니다', async ({ page }) => {
     // 1. 일정 생성
     await page.fill('#title', '수정 전 제목');
     await page.fill('#date', '2025-11-10');

@@ -5,7 +5,6 @@ import React from 'react';
 import EventFormPanel from './EventFormPanel';
 import { Event } from '../types';
 
-
 // 테스트용 고정 데이터
 const categories = ['업무', '개인', '가족', '기타'];
 
@@ -104,7 +103,6 @@ export const RepeatingEvent_Weekly: Story = {
   },
 };
 
-
 /**
  * 일정 수정 모드
  */
@@ -146,4 +144,3 @@ export const Notification_1Minute: Story = {
     notificationTime: 1,
   },
 };
-

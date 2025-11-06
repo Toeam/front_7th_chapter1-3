@@ -88,8 +88,6 @@ const notifiedRepeatingEvent: Event = {
   notificationTime: 60,
 };
 
-
-
 const holidays: Record<string, string> = {
   '2025-12-25': '크리스마스',
 };
@@ -186,7 +184,6 @@ export const MonthView_NotifiedRepeatingEvent = () => (
   </Wrapper>
 );
 
-
 /**
  * 주간 뷰 - 일반 일정
  */
@@ -226,7 +223,7 @@ export const WeekView_NotifiedEvent = () => (
 );
 
 /**
- * 주간 뷰 - 반복 일정 
+ * 주간 뷰 - 반복 일정
  */
 export const WeekView_RepeatingEvent = () => (
   <Wrapper>

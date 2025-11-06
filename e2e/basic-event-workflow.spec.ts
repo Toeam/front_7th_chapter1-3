@@ -24,7 +24,6 @@ async function clearTestingData() {
 
 test.describe('기본 일정 관리 워크플로우', () => {
   test.beforeEach(async ({ page }) => {
-    
     // 테스트 시작 전에 페이지로 이동
     await page.goto('/');
     await page.waitForLoadState('networkidle');

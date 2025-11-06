@@ -224,12 +224,27 @@ const CalendarPanel = ({
                     const dateString = day ? formatDate(currentDate, day) : '';
                     const holiday = holidays[dateString];
                     return (
-                      <TableCell key={dayIndex} sx={{ height: '120px', verticalAlign: 'top', width: '14.28%', padding: 1, border: '1px solid #e0e0e0', overflow: 'hidden', position: 'relative' }}>
+                      <TableCell
+                        key={dayIndex}
+                        sx={{
+                          height: '120px',
+                          verticalAlign: 'top',
+                          width: '14.28%',
+                          padding: 1,
+                          border: '1px solid #e0e0e0',
+                          overflow: 'hidden',
+                          position: 'relative',
+                        }}
+                      >
                         {day && (
                           <DroppableDay dateString={dateString} onClick={() => setDate(dateString)}>
-                            <Typography variant="body2" fontWeight="bold">{day}</Typography>
+                            <Typography variant="body2" fontWeight="bold">
+                              {day}
+                            </Typography>
                             {holiday && (
-                              <Typography variant="body2" color="error">{holiday}</Typography>
+                              <Typography variant="body2" color="error">
+                                {holiday}
+                              </Typography>
                             )}
                             {getEventsForDay(filteredEvents, day).map((event) => {
                               const isNotified = notifiedEvents.includes(event.id);
@@ -318,5 +333,3 @@ const CalendarPanel = ({
 };
 
 export default CalendarPanel;
-
-
