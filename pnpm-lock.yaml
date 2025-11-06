@@ -45,6 +45,12 @@ importers:
       '@eslint/js':
         specifier: 9.34.0
         version: 9.34.0
+      '@playwright/mcp':
+        specifier: ^0.0.45
+        version: 0.0.45
+      '@playwright/test':
+        specifier: ^1.56.1
+        version: 1.56.1
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.6.3
@@ -111,6 +117,9 @@ importers:
       jsdom:
         specifier: ^26.1.0
         version: 26.1.0
+      playwright:
+        specifier: ^1.56.1
+        version: 1.56.1
       typescript:
         specifier: ^5.2.2
         version: 5.6.3
@@ -691,6 +700,16 @@ packages:
   '@pkgr/core@0.2.7':
     resolution: {integrity: sha512-YLT9Zo3oNPJoBjBc4q8G2mjU4tqIbf5CEOORbUUr48dCD9q3umJ3IPlVqOqDakPfd2HuwccBaqlGhN4Gmr5OWg==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
+
+  '@playwright/mcp@0.0.45':
+    resolution: {integrity: sha512-bnndS9etl3ZHu2r3IHEeokk/+7XJ5JfV1KR4bapkwmxLY8nYrt7ETCuyagpQhjzKZq69il50YTorH7UeFSlbUQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  '@playwright/test@1.56.1':
+    resolution: {integrity: sha512-vSMYtL/zOcFpvJCW71Q/OEGQb7KYBPAdKh35WNSkaZA75JlAO8ED8UN6GUNTm3drWomcbcqRPFqQbLae8yBTdg==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
@@ -1839,6 +1858,11 @@ packages:
     resolution: {integrity: sha512-zJ2mQYM18rEFOudeV4GShTGIQ7RbzA7ozbU9I/XBpm7kqgMywgmylMwXHxZJmkVoYkna9d2pVXVXPdYTP9ej8Q==}
     engines: {node: '>= 0.6'}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -2566,6 +2590,26 @@ packages:
   picomatch@4.0.2:
     resolution: {integrity: sha512-M7BAV6Rlcy5u+m6oPhAPFgJTzAioX/6B0DxyvDlo9l8+T3nLKbrczg2WLUyzd45L8RqfUMyGPzekbMvX2Ldkwg==}
     engines: {node: '>=12'}
+
+  playwright-core@1.56.1:
+    resolution: {integrity: sha512-hutraynyn31F+Bifme+Ps9Vq59hKuUCz7H1kDOcBs+2oGguKkWTU50bBWrtz34OUWmIwpBTWDxaRPXrIXkgvmQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright-core@1.57.0-alpha-1761929702000:
+    resolution: {integrity: sha512-8wL65hCHIBKPRUMj7sycaAqhLqgXBIfGITSefv0Tgrm/qIUbbbGzKAxPABR2bxOCMcCGEufaL8nnm/ePG+X9Qw==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.56.1:
+    resolution: {integrity: sha512-aFi5B0WovBHTEvpM3DzXTUaeN6eN0qWnTkKx4NQaH4Wvcmc153PdaY2UBdSYKaGYw+UyWXSVyxDUg5DoPEttjw==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.57.0-alpha-1761929702000:
+    resolution: {integrity: sha512-kWIfN7hC15Izvkz4ySUhnobOH/CFVK2+ixhPgBCPWu6THIAHLFIL0WKnf06lGhTXX46ptDBWHa7bSMHBesmVLg==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -3864,6 +3908,15 @@ snapshots:
     optional: true
 
   '@pkgr/core@0.2.7': {}
+
+  '@playwright/mcp@0.0.45':
+    dependencies:
+      playwright: 1.57.0-alpha-1761929702000
+      playwright-core: 1.57.0-alpha-1761929702000
+
+  '@playwright/test@1.56.1':
+    dependencies:
+      playwright: 1.56.1
 
   '@polka/url@1.0.0-next.28': {}
 
@@ -5254,6 +5307,9 @@ snapshots:
 
   fresh@0.5.2: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -6005,6 +6061,22 @@ snapshots:
   picomatch@2.3.1: {}
 
   picomatch@4.0.2: {}
+
+  playwright-core@1.56.1: {}
+
+  playwright-core@1.57.0-alpha-1761929702000: {}
+
+  playwright@1.56.1:
+    dependencies:
+      playwright-core: 1.56.1
+    optionalDependencies:
+      fsevents: 2.3.2
+
+  playwright@1.57.0-alpha-1761929702000:
+    dependencies:
+      playwright-core: 1.57.0-alpha-1761929702000
+    optionalDependencies:
+      fsevents: 2.3.2
 
   possible-typed-array-names@1.0.0: {}
 
