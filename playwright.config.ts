@@ -54,7 +54,8 @@ export default defineConfig({
     {
       command: 'pnpm run server',
       port: 3000,
-      reuseExistingServer: !process.env.CI,
+      //      reuseExistingServer: !process.env.CI, => 포트 충동 방지 위해 명시적으로 false 설정
+      reuseExistingServer: false,
       env: {
         TEST_ENV: 'e2e',
       },
@@ -62,7 +63,8 @@ export default defineConfig({
     {
       command: 'pnpm run start',
       port: 5173,
-      reuseExistingServer: !process.env.CI,
+      //      reuseExistingServer: !process.env.CI, => 포트 충동 방지 위해 명시적으로 false 설정
+      reuseExistingServer: false,
     },
   ],
 });
